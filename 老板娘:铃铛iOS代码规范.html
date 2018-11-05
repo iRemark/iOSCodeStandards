@@ -1,0 +1,630 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>老板娘:铃铛iOS代码规范.md</title><link href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css'><style type='text/css'>html, body {overflow-x: initial !important;}.CodeMirror { height: auto; }
+.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; }
+.CodeMirror-lines { padding: 4px 0px; }
+.CodeMirror pre { }
+.CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler { background-color: white; }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); background-color: rgb(247, 247, 247); white-space: nowrap; }
+.CodeMirror-linenumbers { }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.CodeMirror div.CodeMirror-cursor { border-left-width: 1px; border-left-style: solid; border-left-color: black; z-index: 3; }
+.CodeMirror div.CodeMirror-secondarycursor { border-left-width: 1px; border-left-style: solid; border-left-color: silver; }
+.CodeMirror.cm-keymap-fat-cursor div.CodeMirror-cursor { width: auto; border: 0px; background-color: rgb(119, 238, 119); z-index: 1; background-position: initial initial; background-repeat: initial initial; }
+.CodeMirror div.CodeMirror-cursor.CodeMirror-overwrite { }
+.cm-tab { display: inline-block; }
+.cm-s-typora-default .cm-header, .cm-s-typora-default .cm-property { color: rgb(217, 79, 138); }
+.cm-s-typora-default pre.cm-header1:not(.cm-atom) :not(.cm-overlay) { font-size: 2rem; line-height: 2rem; }
+.cm-s-typora-default pre.cm-header2:not(.cm-atom) :not(.cm-overlay) { font-size: 1.4rem; line-height: 1.4rem; }
+.cm-s-typora-default .cm-atom, .cm-s-typora-default .cm-number { color: rgb(149, 132, 134); }
+.cm-s-typora-default .cm-table-row, .cm-s-typora-default .cm-block-start { font-family: monospace; }
+.cm-s-typora-default .cm-comment, .cm-s-typora-default .cm-code { color: rgb(74, 90, 159); font-family: monospace; }
+.cm-s-typora-default .cm-tag { color: rgb(169, 68, 66); }
+.cm-s-typora-default .cm-string { color: rgb(126, 134, 169); }
+.cm-s-typora-default .cm-link { color: rgb(196, 122, 15); text-decoration: underline; }
+.cm-s-typora-default .cm-variable-2, .cm-s-typora-default .cm-variable-1 { color: inherit; }
+.cm-s-typora-default .cm-overlay { font-size: 1rem; font-family: monospace; }
+.CodeMirror.cm-s-typora-default div.CodeMirror-cursor { border-left-width: 3px; border-left-style: solid; border-left-color: rgb(228, 98, 154); }
+.cm-s-typora-default .CodeMirror-activeline-background { left: -60px; right: -30px; background-color: rgba(204, 204, 204, 0.2); background-position: initial initial; background-repeat: initial initial; }
+.cm-s-typora-default .CodeMirror-gutters { border-right-style: none; background-color: inherit; }
+.cm-s-typora-default .cm-trailing-space-new-line::after, .cm-startspace::after, .cm-starttab .cm-tab::after { content: '•'; position: absolute; left: 0px; opacity: 0; font-family: LetterGothicStd, monospace; }
+.os-windows .cm-startspace::after, .os-windows .cm-starttab .cm-tab::after { left: -0.1em; }
+.cm-starttab .cm-tab::after { content: ' '; }
+.cm-startspace, .cm-tab, .cm-starttab, .cm-trailing-space-a, .cm-trailing-space-b, .cm-trailing-space-new-line { font-family: monospace; position: relative; }
+.cm-s-typora-default .cm-trailing-space-new-line::after { content: '↓'; opacity: 0.3; }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: black; }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-property { color: black; }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: blue; }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: bold; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: rgb(255, 0, 0); }
+.cm-invalidchar { color: rgb(255, 0, 0); }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { margin-bottom: -30px; margin-right: -30px; padding-bottom: 30px; padding-right: 30px; height: 100%; outline: none; position: relative; box-sizing: content-box; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-vscrollbar, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-gutter-filler { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow-x: hidden; overflow-y: scroll; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow-y: hidden; overflow-x: scroll; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-width: 0px; background-color: transparent; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; background-position: initial initial; background-repeat: initial initial; }
+.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right-width: 30px; border-right-style: solid; border-right-color: transparent; width: -webkit-fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right-style: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-widget { }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right-style: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.CodeMirror-selected { background-color: rgb(217, 217, 217); background-position: initial initial; background-repeat: initial initial; }
+.CodeMirror-focused .CodeMirror-selected { background-color: rgb(215, 212, 240); background-position: initial initial; background-repeat: initial initial; }
+.cm-searching { background-color: rgba(255, 255, 0, 0.4); background-position: initial initial; background-repeat: initial initial; }
+.CodeMirror span { }
+@media print { 
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+.CodeMirror-lint-markers { width: 16px; }
+.CodeMirror-lint-tooltip { background-color: infobackground; border: 1px solid black; border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; color: infotext; font-family: monospace; overflow: hidden; padding: 2px 5px; position: fixed; white-space: pre-wrap; z-index: 10000; max-width: 600px; opacity: 0; transition: opacity 0.4s; font-size: 0.8em; }
+.CodeMirror-lint-mark-error, .CodeMirror-lint-mark-warning { background-position: left bottom; background-repeat: repeat no-repeat; }
+.CodeMirror-lint-mark-error { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAQAAAADCAYAAAC09K7GAAAAAXNSR0IArs4c6QAAAAZiS0dEAP8A/wD/oL2nkwAAAAlwSFlzAAALEwAACxMBAJqcGAAAAAd0SU1FB9sJDw4cOCW1/KIAAAAZdEVYdENvbW1lbnQAQ3JlYXRlZCB3aXRoIEdJTVBXgQ4XAAAAHElEQVQI12NggIL/DAz/GdA5/xkY/qPKMDAwAADLZwf5rvm+LQAAAABJRU5ErkJggg==); }
+.CodeMirror-lint-marker-error, .CodeMirror-lint-marker-warning { cursor: pointer; display: inline-block; height: 16px; width: 16px; vertical-align: middle; position: relative; background-position: center center; background-repeat: no-repeat no-repeat; }
+.CodeMirror-lint-message-error, .CodeMirror-lint-message-warning { padding-left: 18px; background-position: left top; background-repeat: no-repeat no-repeat; }
+.CodeMirror-lint-marker-error, .CodeMirror-lint-message-error { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAHlBMVEW7AAC7AACxAAC7AAC7AAAAAAC4AAC5AAD///+7AAAUdclpAAAABnRSTlMXnORSiwCK0ZKSAAAATUlEQVR42mWPOQ7AQAgDuQLx/z8csYRmPRIFIwRGnosRrpamvkKi0FTIiMASR3hhKW+hAN6/tIWhu9PDWiTGNEkTtIOucA5Oyr9ckPgAWm0GPBog6v4AAAAASUVORK5CYII=); }
+.CodeMirror-lint-marker-warning, .CodeMirror-lint-message-warning { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAANlBMVEX/uwDvrwD/uwD/uwD/uwD/uwD/uwD/uwD/uwD6twD/uwAAAADurwD2tQD7uAD+ugAAAAD/uwDhmeTRAAAADHRSTlMJ8mN1EYcbmiixgACm7WbuAAAAVklEQVR42n3PUQqAIBBFUU1LLc3u/jdbOJoW1P08DA9Gba8+YWJ6gNJoNYIBzAA2chBth5kLmG9YUoG0NHAUwFXwO9LuBQL1giCQb8gC9Oro2vp5rncCIY8L8uEx5ZkAAAAASUVORK5CYII=); }
+.CodeMirror-lint-marker-multiple { background-image: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAcAAAAHCAMAAADzjKfhAAAACVBMVEUAAAAAAAC/v7914kyHAAAAAXRSTlMAQObYZgAAACNJREFUeNo1ioEJAAAIwmz/H90iFFSGJgFMe3gaLZ0od+9/AQZ0ADosbYraAAAAAElFTkSuQmCC); width: 100%; height: 100%; background-position: right bottom; background-repeat: no-repeat no-repeat; }
+
+
+html { font-size: 14px; background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { background-color: rgb(181, 214, 252); text-shadow: none; background-position: initial initial; background-repeat: initial initial; }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; padding-bottom: 70px; white-space: pre-wrap; overflow-x: auto; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+.typora-export #write { margin: 0px auto; }
+#write > p:first-child, #write > ul:first-child, #write > ol:first-child, #write > pre:first-child, #write > blockquote:first-child, #write > div:first-child, #write > table:first-child { margin-top: 30px; }
+#write li > table:first-child { margin-top: -20px; }
+img { max-width: 100%; vertical-align: middle; }
+input, button, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+::before, ::after, * { box-sizing: border-box; }
+#write p, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write div, #write pre { width: inherit; }
+#write p, #write h1, #write h2, #write h3, #write h4, #write h5, #write h6 { position: relative; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+p { -webkit-margin-before: 1rem; -webkit-margin-after: 1rem; -webkit-margin-start: 0px; -webkit-margin-end: 0px; }
+.mathjax-block { margin-top: 0px; margin-bottom: 0px; -webkit-margin-before: 0rem; -webkit-margin-after: 0rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: bold; font-style: italic; }
+a { cursor: pointer; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; margin: 4px 0px 0px; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 80px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+pre { white-space: pre-wrap; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+.md-fences .CodeMirror.CodeMirror-wrap { top: -1.6em; margin-bottom: -1.6em; }
+.md-fences.mock-cm { white-space: pre-wrap; }
+.show-fences-line-number .md-fences { padding-left: 0px; }
+.show-fences-line-number .md-fences.mock-cm { padding-left: 40px; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; padding-top: 1em; padding-bottom: 1em; }
+.footnotes + .footnotes { margin-top: -1em; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; background-color: transparent; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: normal; text-align: left; box-sizing: content-box; direction: ltr; background-position: initial initial; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li p, li .mathjax-block { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; }
+@media print { 
+  html, body { height: 100%; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  h1, h2, h3, h4, h5, h6 { break-after: avoid-page; orphans: 2; }
+  p { orphans: 4; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 1cm; padding-right: 1cm; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0mm; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 2.86rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p .md-image:only-child { display: inline-block; width: 100%; text-align: center; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.mathjax-block { white-space: pre; overflow: hidden; width: 100%; }
+p + .mathjax-block { margin-top: -1.143rem; }
+.mathjax-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: none; box-shadow: none; }
+.task-list { list-style-type: none; }
+.task-list-item { position: relative; padding-left: 1em; }
+.task-list-item input { position: absolute; top: 0px; left: 0px; }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc::after, .md-toc-content::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); text-decoration: none; }
+.md-toc-inner:hover { }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: bold; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: '.'; }
+.md-tag { opacity: 0.5; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: monospace; }
+code { text-align: left; }
+h1 .md-tag, h2 .md-tag, h3 .md-tag, h4 .md-tag, h5 .md-tag, h6 .md-tag { font-weight: initial; opacity: 0.35; }
+a.md-print-anchor { border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: none !important; background-color: transparent !important; text-shadow: initial !important; background-position: initial initial !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.mathjax-block .MathJax_SVG_Display { text-align: center; margin: 1em 0em; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: monospace; }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: normal; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+
+
+@include-when-export url(http://fonts.googleapis.com/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+/**
+ * css forked from https://github.com/GitbookIO/gitbook 
+ * www.gitbook.com
+ * Apache License
+ * https://github.com/GitbookIO/gitbook/blob/master/LICENSE
+ **/
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans Regular'),url('file:///Users/liuweizhen/Library/Application%20Support/abnerworks.Typora/themes/github/400.woff') format('woff')
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Open Sans Italic'),url('file:///Users/liuweizhen/Library/Application%20Support/abnerworks.Typora/themes/github/400i.woff') format('woff')
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Open Sans Bold'),url('file:///Users/liuweizhen/Library/Application%20Support/abnerworks.Typora/themes/github/700.woff') format('woff')
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: bold;
+    src: local('Open Sans Bold Italic'),url('file:///Users/liuweizhen/Library/Application%20Support/abnerworks.Typora/themes/github/700i.woff') format('woff')
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write{
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 20px 30px 40px 30px;
+	padding-top: 20px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+body > *:first-child {
+    margin-top: 0 !important;
+}
+body > *:last-child {
+    margin-bottom: 0 !important;
+}
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    /*background: url("file:///Users/liuweizhen/Library/Application%20Support/images/modules/styleguide/para.png") no-repeat 10px center;*/
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 4px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+    border-bottom: 1px solid #ddd;
+}
+
+body > h2:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+body > h1:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+body > h1:first-child + h2 {
+    margin-top: 0;
+    padding-top: 0;
+}
+body > h3:first-child,
+body > h4:first-child,
+body > h5:first-child,
+body > h6:first-child {
+    margin-top: 0;
+    padding-top: 0;
+}
+a:first-child h1,
+a:first-child h2,
+a:first-child h3,
+a:first-child h4,
+a:first-child h5,
+a:first-child h6 {
+    margin-top: 0;
+    padding-top: 0;
+}
+h1 p,
+h2 p,
+h3 p,
+h4 p,
+h5 p,
+h6 p {
+    margin-top: 0;
+}
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dddddd;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #cccccc;
+    background-color: white;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n) {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #cccccc;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #cccccc;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-gutters {
+    border-right: 1px solid #ddd;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0.2em 1em;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+.task-list{
+	padding-left: 0;
+}
+
+.task-list-item {
+	padding-left:32px;
+}
+
+.task-list-item input {
+  top: 3px;
+  left: 8px;
+}
+
+@media screen and (min-width: 914px) {
+    /*body {
+        width: 854px;
+        margin: 0 auto;
+    }*/
+}
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    font-family: Consolas, "Liberation Mono", Courier, monospace;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag{
+	color: inherit;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+#md-notification:before {
+    top: 10px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><h2><a name='header-c5' class='md-header-anchor '></a>老板娘/铃铛iOS代码规范</h2><blockquote><p>随着代码量的增加和项目的增大以及项目合理或不合理的迭代，代码会显得冗余和杂乱。良好的代码规范和和规则以及设计良好的封装对项目的迭代扩展以及程序员本身无疑是一件好事，因此，在这里作一些简单的代码规范规则的说明，并希望大家遵守和扩展此文档。</p></blockquote><ul><li><p><strong><a href='#%E4%BD%BF%E7%94%A8%E5%B1%9E%E6%80%A7_ref_id'>使用属性</a></strong></p></li><li><p><strong><a href='#ARC%E4%B8%AD%E5%B1%9E%E6%80%A7%E7%9A%84%E7%9C%81%E7%95%A5%E5%86%99%E6%B3%95_ref_id'>ARC中属性的省略写法</a></strong></p></li><li><p><strong><a href='#%E5%B1%9E%E6%80%A7%E7%9A%84%E7%BB%9F%E4%B8%80%E5%86%99%E6%B3%95_ref_id'>属性的统一写法</a></strong></p></li><li><p><strong><a href='#%E5%B1%9E%E6%80%A7%E7%9A%84%E4%B8%80%E4%BA%9B%E4%BD%BF%E7%94%A8%E6%8A%80%E5%B7%A7_ref_id'>属性的一些使用技巧</a></strong></p></li><li><p><strong><a href='#%E9%A9%BC%E5%B3%B0%E5%91%BD%E5%90%8D%E6%B3%95_ref_id'>驼峰命名法</a></strong></p></li><li><p><strong><a href='#%E7%B1%BB%E4%B8%AD%E5%B1%9E%E6%80%A7/%E5%8F%98%E9%87%8F%E7%9A%84%E5%A4%9A%E4%BD%99%E5%86%99%E6%B3%95_ref_id'>类中属性/变量的多余写法</a></strong></p></li><li><p><strong><a href='#%E6%96%B9%E6%B3%95%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E5%88%99_ref_id'>方法的命名规则</a></strong></p></li><li><p><strong><a href='#%E6%96%B9%E6%B3%95%E7%9A%84%E4%B9%A6%E5%86%99%E5%92%8C%E6%B3%A8%E9%87%8A_ref_id'>方法的书写和注释</a></strong></p></li><li><p><strong><a href='#%E6%89%A9%E5%B1%95%E7%B1%BB%E7%9A%84%E6%96%B9%E6%B3%95%E5%91%BD%E5%90%8D%E6%B3%A8%E6%84%8F%E4%BA%8B%E9%A1%B9_ref_id'>扩展类的方法命名注意事项</a></strong></p></li><li><p><strong><a href='#%E7%B1%BB%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83_ref_id'>类的命名规范</a></strong></p></li><li><p><strong><a href='#%E6%9E%9A%E4%B8%BE%E5%86%99%E6%B3%95_ref_id'>枚举写法</a></strong></p></li><li><p><strong><a href='#%E4%B8%A4%E7%A7%8Dblock%E7%9A%84%E5%B8%B8%E8%A7%84%E5%86%99%E6%B3%95_ref_id'>两种block的常规写法</a></strong></p></li><li><p><strong><a href='#%E5%B0%91%E7%94%A8tag%E5%80%BC_ref_id'>少用tag值</a></strong></p></li><li><p><strong><a href='#%E7%BB%9F%E4%B8%80%E6%A8%A1%E5%9E%8B%E5%B1%82_ref_id'>统一模型层</a></strong></p></li><li><p><strong><a href='#Controller%E5%91%BD%E5%90%8D%E5%8F%AF%E5%8E%BB%E6%8E%89View_ref_id'>Controller命名可去掉View</a></strong></p></li><li><p><strong><a href='#%E6%85%8E%E7%94%A8%E9%80%9A%E7%9F%A5_ref_id'>慎用通知</a></strong></p></li><li><p><strong><a href='#%E8%A1%A8%E5%8D%95%E6%95%B0%E6%8D%AE%E7%9A%84%E6%8A%93%E5%8F%96_ref_id'>表单数据的抓取</a></strong></p><hr /></li></ul><ul><li><p><span id="使用属性_ref_id">使用属性</span></p><p>从C++的官方推荐和Java Bean规范来讲，都是把变量私有化，对外提供getter和setter方法，这就是我们常说的“属性”，对于Objective-C的优雅的属性语法，我们更应该在可以使用变量和属性的选择中优先选择属性，即：</p><p>不要使用</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@interface</span> <span class="cm-variable">MyObject</span> : <span class="cm-variable">NSObject</span> {</span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-tab">    </span><span class="cm-variable">NSString</span> <span class="cm-operator">*</span><span class="cm-variable">name</span>;</span></pre><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  ...</span></pre><pre class=""><span style="padding-right: 0.1px;">}</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@end</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 112px;"></div></div></div></pre><p>应该使用</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@interface</span> <span class="cm-variable">MyObject</span> : <span class="cm-variable">NSObject</span></span></pre></div><pre class=""><span style="padding-right: 0.1px;">  </span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>, <span class="cm-keyword">copy</span>) <span class="cm-variable">NSString</span> <span class="cm-operator">*</span><span class="cm-variable">name</span>;</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@end</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 88px;"></div></div></div></pre><p>使用这种命令方式的优点不仅仅在于统一了代码规范，而且更重要的是由于提供了setter/getter方法，可以更好的保护数据，以及在set/get的时候作额外的操作，并且使用@property的形式方便运行时捕捉到属性信息以便作底层次的处理。 <br/></p><p>但是，可能有人问使用变量会不会比使用属性效率要高？回答：很可能是，所以你写项目全用汇编或机器语言写好了，不要考虑其他语言。为了这一点点所谓的效率而失掉优雅的代码特性是错误的做法。而且可以负责任的说，真正的coding高手眼中的效率问题绝不是这种浅薄的弃掉属性用变量换取执行效率的问题。</p></li><li><p><span id="ARC中属性的省略写法_ref_id">ARC中属性的省略写法</span></p><p>ARC自从推出至今已很多年，我们的项目一律采用ARC内存管理方式处理。<br/></p><p>在ARC中属性默认为strong，这个字段可以省略不写，即：<br/></p><p>不要使用：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>, <span class="cm-variable">strong</span>) <span class="cm-variable">Person</span> <span class="cm-operator">*</span><span class="cm-variable">person</span>;</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p>建议使用：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>) <span class="cm-variable">Person</span> <span class="cm-operator">*</span><span class="cm-variable">person</span>;</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p>对于基本类型同样可以省略assign，因为对于基本数据类型，不存在什么strong或retain:</p><p>不要使用：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>, <span class="cm-variable">assign</span>) <span class="cm-variable">NSInteger</span> <span class="cm-variable">age</span>;</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p>建议使用：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>) <span class="cm-variable">NSInteger</span> <span class="cm-variable">age</span>;</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p>在一些第三方库的代码里，可能见到省略的或不省略的写法，在这里，咱们只是为了统一规范而已，无用与不用的理由。</p></li><li><p><span id="属性的统一写法_ref_id">属性的统一写法</span></p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>) <span class="cm-variable">Person</span> <span class="cm-operator">*</span><span class="cm-variable">person</span>;</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p>@property的括号间有间隔，nonatomic和strong间有间隔，指针*号靠近对象而不是靠近类。</p><p>只是为了清晰代码和规范，无用与不用的理由。</p></li><li><p><span id="属性的一些使用技巧_ref_id">属性的一些使用技巧</span></p><p>在自己封装一些类库时，属性的写法有些注意事项：</p><ul><li><p>不必要提供出去的属性写在.m中，形如：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// MyClass.m</span></span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@interface</span> <span class="cm-variable">MyClass</span>()</span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>) <span class="cm-variable">SomeObject</span> <span class="cm-operator">*</span><span class="cm-variable">obj</span>; <span class="cm-comment">// 既然没必要提供出去，就把它私有化，外界不让访问</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@end</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@implementation</span> <span class="cm-variable">MyClass</span></span></pre><pre class=""><span style="padding-right: 0.1px;">...</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@end</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 198px;"></div></div></div></pre></li><li><p>提供出去的BOOL类型的属性，其getter方法写为：isXxx, 形如：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>, <span class="cm-variable">getter</span><span class="cm-operator">=</span><span class="cm-variable">isValid</span>) <span class="cm-keyword">BOOL</span> <span class="cm-variable">valid</span>; </span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 这样调用set方法为：obj.valid = YES; </span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 调用get方法为：BOOL isValid = obj.isValid;</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 66px;"></div></div></div></pre><p>这种方式更贴近人性化，我们看Apple的官方类，对于这类BOOL类型的属性，也是如此，比如：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// UIKit/UIControl.h</span></span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span>(<span class="cm-keyword">nonatomic</span>,<span class="cm-variable">getter</span><span class="cm-operator">=</span><span class="cm-variable">isEnabled</span>) <span class="cm-keyword">BOOL</span> <span class="cm-variable">enabled</span>;</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span>(<span class="cm-keyword">nonatomic</span>,<span class="cm-variable">getter</span><span class="cm-operator">=</span><span class="cm-variable">isSelected</span>) <span class="cm-keyword">BOOL</span> <span class="cm-variable">selected</span>;</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 66px;"></div></div></div></pre></li><li><p>一些属性在外部只读，但在内部需要set的做法：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// MyClass.h</span></span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@interface</span> <span class="cm-variable">MyClass</span> : <span class="cm-variable">NSObject</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>, <span class="cm-keyword">readonly</span>) <span class="cm-variable">SomeObject</span> <span class="cm-operator">*</span><span class="cm-variable">obj</span>; <span class="cm-comment">// 对外只读</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@end</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// MyClass.m</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@interface</span> <span class="cm-variable">MyClass</span>()</span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>, <span class="cm-keyword">readwrite</span>) <span class="cm-variable">SomeObject</span> <span class="cm-operator">*</span><span class="cm-variable">obj</span>;</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@end</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@implementation</span> <span class="cm-variable">MyClass</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">-</span> (<span class="cm-variable-3">void</span>)<span class="cm-variable">myMethod</span> {</span></pre><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-keyword">self</span>.<span class="cm-variable">obj</span> <span class="cm-operator">=</span> [[<span class="cm-variable">SomeObject</span> <span class="cm-variable">alloc</span>] <span class="cm-variable">init</span>]; <span class="cm-comment">// 在内部可以赋值</span></span></pre><pre class=""><span style="padding-right: 0.1px;">}</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@end</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 374px;"></div></div></div></pre><p>​</p></li></ul></li><li><p><span id="驼峰命名法_ref_id">驼峰命名法</span></p><p>驼峰命名法Camel-Case从早期的lower-case命名法发展而来，形如“好学生”的lower-case命名法为：good_student, 其驼峰命名法为：goodStudent, 这些都被大家所习惯和熟识，在OC中，类名第一个字母必须大写，变量第一个字母小写等规则不必多说，但值得一提的是</p><p>不要使用：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">Student</span> <span class="cm-operator">*</span><span class="cm-variable">gS</span>;</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p>建议使用：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">Student</span> <span class="cm-operator">*</span><span class="cm-variable">goodStudent</span>;</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p>在像Objective-C类似的这种高级语言中，绝不建议过分的省略单词的写法，如果写成gS, 只有你和鬼知道是什么意思，多打一点字清晰一些不是什么坏事。有位老师在教授PHP的课堂中曾说到一个学生起的变量名为：fdckfs, 后来一问才知道这个意思是”房地产开发商“。</p></li><li><p><span id="类中属性/变量的多余写法_ref_id">类中属性/变量的多余写法</span></p><p>比如学生类：Student, 有两个属性：姓名和年龄</p><p>不要使用：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>, <span class="cm-keyword">copy</span>) <span class="cm-variable">NSString</span> <span class="cm-operator">*</span><span class="cm-variable">studentName</span>;</span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>) <span class="cm-variable">NSInteger</span> <span class="cm-variable">studentAge</span>;</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 44px;"></div></div></div></pre><p>建议使用：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>, <span class="cm-keyword">copy</span>) <span class="cm-variable">NSString</span> <span class="cm-operator">*</span><span class="cm-variable">name</span>;</span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>) <span class="cm-variable">NSInteger</span> <span class="cm-variable">age</span>;</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 44px;"></div></div></div></pre><p>适当想一下就可以知道，在学生类里，name就是学生的名字，没必要再强调用studentName表示学生姓名，在Student里用studentName表示学生姓名是一种完全多余的写法。</p></li><li><p><span id="方法的命名规则_ref_id">方法的命名规则</span></p><p>不必多说，仿官方形式：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">-</span> (<span class="cm-variable-3">void</span>)<span class="cm-variable">viewDidLoad</span> {</span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-tab">    </span><span class="cm-comment">// ...</span></span></pre><pre class=""><span style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 68px;"></div></div></div></pre><p>-或+距扩号有一个空格，方法名驼峰写法，首字母一律小写。</p></li><li><p><span id="方法的书写和注释_ref_id">方法的书写和注释</span></p><p>-方法和+方法，-/+符合和括号留空隔，方法体左括号靠近代码书写，for循环;内留空隔，形如：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">-</span> (<span class="cm-variable-3">void</span>)<span class="cm-variable">viewDidLoad</span> {</span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-tab">    </span><span class="cm-comment">// ...</span></span></pre><pre class=""><span style="padding-right: 0.1px;"> &nbsp; <span class="cm-tab"> </span><span class="cm-keyword">for</span> (<span class="cm-variable">NSInteger</span> <span class="cm-variable">i</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>; <span class="cm-variable">i</span> <span class="cm-operator">&lt;</span> <span class="cm-number">100</span>; <span class="cm-variable">i</span><span class="cm-operator">++</span>) {</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-tab">    </span><span class="cm-tab">    </span><span class="cm-comment">// ...</span></span></pre><pre class=""><span style="padding-right: 0.1px;"> &nbsp; <span class="cm-tab"> </span>}</span></pre><pre class=""><span style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 140px;"></div></div></div></pre><p>其实和官方API写法一致而已，养成习惯，统一起来不致看着乱。</p><p>注释采取Apple推荐注释，形如：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">/**</span></span></pre></div><pre class=""><span style="padding-right: 0.1px;"> <span class="cm-comment">*  @param keyValues 字典(可以是NSDictionary、NSData、NSString)</span></span></pre><pre class=""><span style="padding-right: 0.1px;"> <span class="cm-comment">*  @cls 即data所对应的类，如果传为nil, 则不对data进行解析</span></span></pre><pre class=""><span style="padding-right: 0.1px;"> <span class="cm-comment">*  @return 新建的CommonModel对象</span></span></pre><pre class=""><span style="padding-right: 0.1px;"> <span class="cm-comment">*/</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">+</span> (<span class="cm-variable">instancetype</span>)<span class="cm-variable">commonModelWithKeyValues</span>:(<span class="cm-keyword">id</span>)<span class="cm-variable">keyValues</span> <span class="cm-variable">dataClass</span>:(<span class="cm-keyword">Class</span>)<span class="cm-variable">cls</span>;</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 132px;"></div></div></div></pre><p>对于//注释，//符合和注释文字间留出一个空隔, 这也是官方的写法，形如：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;">[<span class="cm-variable">obj</span> <span class="cm-variable">testMethod</span>]; <span class="cm-comment">// 这是注释文字，和//符合留一空格</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre></li><li><p><span id="扩展类的方法命名注意事项_ref_id">扩展类的方法命名注意事项</span></p><p>我们看一些第三方库，比如SDWebImage, MJExtension这些比较特殊，它们很多是扩展类Category，比如SDWebImage中有对UIImageView的扩展，MJExtension有对NSObject的扩展。拿SDWebImage中的UIImageView+WebCache.h中的方法声明中示例：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">-</span> (<span class="cm-variable-3">void</span>)<span class="cm-variable">sd_setImageWithURL</span>:(<span class="cm-variable">NSURL</span> <span class="cm-operator">*</span>)<span class="cm-variable">url</span> <span class="cm-variable">placeholderImage</span>:(<span class="cm-variable">UIImage</span> <span class="cm-operator">*</span>)<span class="cm-variable">placeholder</span>;</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p>它的命名方式为什么加了前缀sd_, 这不符合一般的方法命名规范，其实这主要是为了防止有一天系统给UIImageView也加了setImageWithURL:placeholderImage:或是为了防止其他第三方库也实现了setImageWithURL:placeholderImage:这个方法。</p><p>这种事情的发生并不是什么巧合，比如我在AFNetworking的UIImageView+AFNetworking中也发现了类似的代码：</p><pre class='md-fences mock-cm' style='display:block;position:relative'>- (void)setImageWithURL:(NSURL *)url placeholderImage:(nullable UIImage *)placeholderImage;</pre><p>如果SDWebImage没有加前缀，那么这两个方法的方法签名就都是：<code>setImageWithURL:placeholderImage:</code></p><p>试想，在这两个库中，这个方法都是对UIImageView的Category，如果SDWebImage真的没有对方法加sd_前缀(早版本的SDWebImage确实没有加前缀)，在项目中引入SDWebImage这个库的同时又引入了AFNetworking, 会怎么样？这就会出现苹果官网上说的“Undefined problem”未知问题。</p><p>启示：如果我们要封装自己的Category, 方法名也要加自己的统一前缀。因为Category不同于继承，对于继承出来的两个类，其对象调用相同的实例方法不会有什么问题，但Category不一样，比如上面对imageView如果调用相同的方法，编译器就无法识别了。</p></li><li><p><span id="类的命名规范_ref_id">类的命名规范</span></p><p>在传统的C++语言、高级的Java、C#语言中为了解决类名的重复问题采用了&quot;命名空间&quot;或&quot;package&quot;的方法来解决，大致意思是说在命名空间UI下的Button类和命名空间LB(联璧)下的Button类以及其他命名空间下的Button类不是同一个类，不同命名空间下可以有相同的类名，这好比上海市的“小明”和苏州市的“小明”不是一个小明一样，但可惜的是，OC并没有这样的机制，因此取而代之的是在类名前加前缀，随着一门语言体系的增大，我个人认为这种在类名加前缀的做法并不是非常的好，但好在Apple给我们封装的类都很经典和强悍，在类名前加前缀也使用这些类的用处明显。所以毫无疑问，我们的项目也要保持这种习惯。</p><p>按照传统的MVC模式来分，统一起见类名前加前缀如下：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap     "><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre><span style="padding-right: 0.1px;"><span class="cm-variable">Model</span>: <span class="cm-variable">LB</span>...</span></pre></div><pre><span style="padding-right: 0.1px;"><span class="cm-variable">View</span>: <span class="cm-variable">LV</span>...</span></pre><pre><span style="padding-right: 0.1px;"><span class="cm-variable">Controller</span>: <span class="cm-variable">LC</span>...</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 66px;"></div></div></div></pre><p>不过，为了减轻这种繁锁，也可以在一个项目中统一，比如无论模型视图还是控制器，都使用LB开头。</p></li><li><p><span id="使用属性_ref_id">枚举写法</span></p><p>OC自定义了枚举的写法，可以很好的声明枚举的类型，比如枚举类型为NSInteger, 所以</p><p>不建议使用：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">typedef</span> <span class="cm-keyword">enum</span> {</span></pre></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-variable">LVStyleActionSheet</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>,</span></pre><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-variable">LVStyleAlert</span></span></pre><pre class=""><span style="padding-right: 0.1px;">} <span class="cm-variable">LVStyle</span>;</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 88px;"></div></div></div></pre><p>建议使用：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">typedef</span> <span class="cm-variable">NS_ENUM</span>(<span class="cm-variable">NSInteger</span>, <span class="cm-variable">LVStyle</span>) {</span></pre></div><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-variable">LVStyleActionSheet</span> <span class="cm-operator">=</span> <span class="cm-number">0</span>,</span></pre><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-variable">LVStyleAlert</span></span></pre><pre class=""><span style="padding-right: 0.1px;">};</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 88px;"></div></div></div></pre></li><li><p><span id="两种block的常规写法_ref_id">两种block的常规写法</span></p><p>&quot;返回值为void，没有跟参数的block类型&quot;，Apple已经为我们定义好了:</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">typedef</span> <span class="cm-variable-3">void</span> (<span class="cm-variable">^dispatch_block_t</span>)(<span class="cm-variable-3">void</span>);</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p>为了统一起见，关于这种block类型，项目中也应该用dispatch_block_t，因为常用的原因，Apple写好了这个类型，另外还有一种block类型常用：&quot;返回值为void，跟一个参数的block类型&quot;，所以我们可以把这两种常用的block类型写进pch文件，形如：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">typedef</span> <span class="cm-variable">dispatch_block_t</span> <span class="cm-variable">BlockVoidType</span>;  <span class="cm-comment">// 只是为了向驼峰命名靠近，重新typedef系统类型</span></span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">typedef</span> <span class="cm-keyword">typedef</span> <span class="cm-variable-3">void</span> (<span class="cm-variable">^BlockIdType</span>)(<span class="cm-keyword">id</span>); <span class="cm-comment">// 返回值为void, 跟一个id参数的block类型</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 44px;"></div></div></div></pre></li><li><p><span id="少用tag值_ref_id">少用tag值</span></p><p>项目中如果有多个类似的控件，很多情况可以用tag值区分，比如一个页面有10个按钮，每点击一个按钮把其中一个学生的信息传给其他控制器，它们触发的方法都是buttonClick: 那么为了区分是哪个按钮, 可以用tag值区分，代码形如：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">-</span> (<span class="cm-variable-3">void</span>)<span class="cm-variable">buttonClick</span>:(<span class="cm-variable">UIButton</span> <span class="cm-operator">*</span>)<span class="cm-variable">button</span> {</span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-tab">    </span><span class="cm-keyword">if</span> (<span class="cm-variable">button</span>.<span class="cm-variable">tag</span> <span class="cm-operator">==</span> <span class="cm-number">100</span>) {</span></pre><pre class=""><span style="padding-right: 0.1px;"> &nbsp; &nbsp;  <span class="cm-tab">  </span><span class="cm-variable">Student</span> <span class="cm-operator">*</span><span class="cm-variable">student</span> <span class="cm-operator">=</span> <span class="cm-keyword">self</span>.<span class="cm-variable">studentArray</span>[<span class="cm-variable">button</span>.<span class="cm-variable">tag</span><span class="cm-operator">-</span><span class="cm-number">100</span>];</span></pre><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-tab">    </span><span class="cm-comment">// ...</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-tab">    </span>} <span class="cm-keyword">else</span> <span class="cm-keyword">if</span> (<span class="cm-variable">button</span>.<span class="cm-variable">tag</span> <span class="cm-operator">==</span> <span class="cm-number">101</span>) {</span></pre><pre class=""><span style="padding-right: 0.1px;"> &nbsp; &nbsp;  <span class="cm-tab">  </span><span class="cm-comment">// ..</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-tab">    </span>}</span></pre><pre class=""><span style="padding-right: 0.1px;">  <span class="cm-tab">  </span>...</span></pre><pre class=""><span style="padding-right: 0.1px;">}</span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 212px;"></div></div></div></pre><p>这种是极其糟糕的做法，这种写法除了自己很少有人知道tag为100代表的是什么，一般来说我们的做法有两种，一是封装自己的Button:</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@interface</span> <span class="cm-variable">MyButton</span></span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-tab">    </span><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>) <span class="cm-variable">Student</span> <span class="cm-operator">*</span><span class="cm-variable">student</span>;</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-tab">    </span><span class="cm-comment">// ...</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@end</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 92px;"></div></div></div></pre><p>但是如果项目已写成，大量的修改这种代码并不见得好，所以我们采用第二种方式：</p><p>二是对Button进行扩展，通过动态关联让UIButton具有Student属性，针对这种需求，为了统一起见，在项目中我们对NSObject进行扩展给其附加一个对象：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// NSObject+LBAttatchObject.h</span></span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-meta">#import &lt;Foundation/Foundation.h&gt;</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@interface</span> <span class="cm-variable">NSObject</span> (<span class="cm-variable">LBAttatchObject</span>)</span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>) <span class="cm-keyword">id</span> <span class="cm-variable">lbAttachObject</span>;</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@end</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 154px;"></div></div></div></pre><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-meta">#import "NSObject+LBAttatchObject.h"</span></span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-meta">#import &lt;objc/runtime.h&gt;</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@implementation</span> <span class="cm-variable">NSObject</span> (<span class="cm-variable">LBAttatchObject</span>)</span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">-</span> (<span class="cm-keyword">id</span>)<span class="cm-variable">lbAttachObject</span> {</span></pre><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-keyword">return</span> <span class="cm-variable">objc_getAssociatedObject</span>(<span class="cm-keyword">self</span>, <span class="cm-variable">_cmd</span>);</span></pre><pre class=""><span style="padding-right: 0.1px;">}</span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">-</span> (<span class="cm-variable-3">void</span>)<span class="cm-variable">setLbAttachObject</span>:(<span class="cm-keyword">id</span>)<span class="cm-variable">lbAttachObject</span> {</span></pre><pre class=""><span style="padding-right: 0.1px;"> &nbsp;  <span class="cm-variable">objc_setAssociatedObject</span>(<span class="cm-keyword">self</span>, <span class="cm-keyword">@selector</span>(<span class="cm-variable">lbAttachObject</span>), <span class="cm-variable">lbAttachObject</span>, <span class="cm-variable">OBJC_ASSOCIATION_RETAIN</span>);</span></pre><pre class=""><span style="padding-right: 0.1px;">}</span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@end</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 330px;"></div></div></div></pre></li><li><p><span id="统一模型层_ref_id">统一模型层</span></p><p>用AF从服务器上down下来数据之后，用MJExtension或其他第三方库的反射机制把数据转换成模型，尽量不要使用从字典中取key-value值，把数据对象化，为了便于处理，在MJ的基础上做CommonModel, 统一处理服务器返回的数据</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// LBCommonModel作为整个App的Model，不同点在于data字段</span></span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@interface</span> <span class="cm-variable">LBCommonModel</span> : <span class="cm-variable">NSObject</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>, <span class="cm-keyword">copy</span>) <span class="cm-variable">NSString</span> <span class="cm-operator">*</span><span class="cm-variable">msg</span>;</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>) <span class="cm-keyword">id</span> <span class="cm-variable">data</span>;</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>) <span class="cm-variable">NSInteger</span> <span class="cm-variable">code</span>;</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@property</span> (<span class="cm-keyword">nonatomic</span>, <span class="cm-keyword">copy</span>) <span class="cm-variable">NSString</span> <span class="cm-operator">*</span><span class="cm-variable">totalAmt</span>;</span></pre><pre class=""><span style="padding-right: 0.1px;"><span>​</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">/**</span></span></pre><pre class=""><span style="padding-right: 0.1px;"> <span class="cm-comment">*  @param keyValues 字典(可以是NSDictionary、NSData、NSString)</span></span></pre><pre class=""><span style="padding-right: 0.1px;"> <span class="cm-comment">*  @cls 即data所对应的类，如果传为nil, 则不对data进行解析</span></span></pre><pre class=""><span style="padding-right: 0.1px;"> <span class="cm-comment">*  @return 新建的CommonModel对象</span></span></pre><pre class=""><span style="padding-right: 0.1px;"> <span class="cm-comment">*/</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">+</span> (<span class="cm-variable">instancetype</span>)<span class="cm-variable">commonModelWithKeyValues</span>:(<span class="cm-keyword">id</span>)<span class="cm-variable">keyValues</span> <span class="cm-variable">dataClass</span>:(<span class="cm-keyword">Class</span>)<span class="cm-variable">cls</span>;</span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@end</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 330px;"></div></div></div></pre></li><li><p><span id="Controller命名可去掉View_ref_id">Controller命名可去掉View</span></p><p>前面说过，控制器前缀字符：LC, 如果所有的控制器再加上ViewController, 显得有些长，比如：LCFinalcialViewController, 为了统一起见，即然是控制器，突出Controller, 不用带View, 即命名控制器格式为：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">LCXxxController</span></span></pre></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">LCFinalcialViewController</span> <span class="cm-operator">-&gt;</span> <span class="cm-variable">LCFinalcialController</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 44px;"></div></div></div></pre></li><li><p><span id="慎用通知_ref_id">慎用通知</span></p><p>通知NSNotificationCenter是KVO设计模式的重要实现之一，但对于一般的界面之间的回调等，少用通知，通知会导致系统的维护性很差，一旦通知用的多了，很难知道哪里注册了通知，哪里受通知的影响，这会变的杂乱。</p><p>通知应当用在系统层次、全局层次的影响上，比如统一处理键盘遮挡输入框的问题，而不是用在简单的传值上面。为了更有效的管理通知，统一封装类LBNotificationManager来管理系统上所有的通知。形如：</p><pre class="md-fences md-end-block" lang="objective-c"> <div class="CodeMirror cm-s-inner CodeMirror-wrap"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 4px;"></div><div class="CodeMirror-hscrollbar" style="left: 0px;"><div style="height: 100%; min-height: 1px; width: 0px;"></div></div><div class="CodeMirror-vscrollbar"><div style="min-width: 1px; height: 0px;"></div></div><div class="CodeMirror-scrollbar-filler"></div><div class="CodeMirror-gutter-filler"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; min-height: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines"><div style="position: relative; outline: none;"><div class="CodeMirror-measure"><div style="width: 50px; height: 50px; overflow-x: scroll;"></div></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><pre class=""><span style="padding-right: 0.1px;"><span class="cm-variable">ace</span> <span class="cm-variable">LBNotificationManaager</span> : <span class="cm-variable">NSObject</span></span></pre></div><pre class=""><span style="padding-right: 0.1px;">  </span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-comment">// 通知</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">+</span> (<span class="cm-variable-3">void</span>)<span class="cm-variable">registNotifyOfDownloadSoftSuccess</span>:(<span class="cm-keyword">id</span>)<span class="cm-variable">observer</span> <span class="cm-variable">selector</span>:(<span class="cm-keyword">SEL</span>)<span class="cm-variable">selector</span>; <span class="cm-comment">// 注册通知</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">+</span> (<span class="cm-variable-3">void</span>)<span class="cm-variable">postNotifyOfDownloadSoftSuccess</span>:(<span class="cm-keyword">id</span>)<span class="cm-variable">object</span> <span class="cm-variable">userInfo</span>:(<span class="cm-variable">NSDictionary</span> <span class="cm-operator">*</span>)<span class="cm-variable">userInfo</span>; <span class="cm-comment">// 发送通知</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-operator">+</span> (<span class="cm-variable-3">void</span>)<span class="cm-variable">removeNotifyOfDownloadSoftSuccess</span>:(<span class="cm-keyword">id</span>)<span class="cm-variable">observer</span> <span class="cm-variable">object</span>:(<span class="cm-keyword">id</span>)<span class="cm-variable">obj</span>; <span class="cm-comment">// 取消通知</span></span></pre><pre class=""><span style="padding-right: 0.1px;"><span class="cm-keyword">@end</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 30px; width: 1px; top: 0px;"></div><div class="CodeMirror-gutters" style="display: none; height: 176px;"></div></div></div></pre></li><li><p><span id="表单数据的抓取_ref_id">表单数据的抓取</span></p><p>在传统的web开发中，表单form提供给用户填写信息，当点击提交submit的时候，再把用户填写的表单数据提交给服务器，在iOS开发中，我们姑且认为诸如UITextField等控件为表单控件，当点击&quot;注册、登录&quot;等提交按钮时，我们通常做法是从这些控件中提取出值然后做处理，比如赋值给模型，过滤一些信息，针对这种需求，我们可以做些处理，点击提交时，让输入控件的值自动赋给模型，而不必每次再从控件中取值。</p><p>这里有一个笨拙的方案：  <a href='https://github.com/ACommonChinese/ZZBindDemo_2'>ZZBindDemo_2</a>，但这种处理方式还是比较笨的，如果结合思路用RAC处理会好很多，推荐使用RAC解决这个问题，参照当前目录下 <strong>BindDemo</strong></p><p>ZZBindDemo_1/2使用起来比较烦琐，没有达到非常便捷的目的，需要大家共同想一个更好些的解决方案。</p></li><li><p>Other...</p><hr /><p>​</p></li></ul><blockquote><p>编辑：</p><p>刘威振、许毓方</p><p>编辑软件：Typora</p><p>希望大家扩展</p><p>文件所在地址：<a href='http://172.16.103.166:9099/dashboard/projects' target='_blank' >http://172.16.103.166:9099/dashboard/projects</a></p></blockquote><p></p><p></p></div>
+</body>
+</html>

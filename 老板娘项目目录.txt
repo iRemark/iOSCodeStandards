@@ -1,0 +1,51 @@
+注意全为本地真实目录
+
+Assets.xcassets : 图片资源, 可以的话放最顶层, 方便每个人添加搜索, 不放入文件夹
+
+Lib : 不能pod或要改原文件的第三方
+
+Util : 工具类
+   - Tool : 自己封装的工具类
+   - Helper : Category
+   - SDK : 自己公司的.a
+
+Class : TabBar
+   - Home 页面过多. 可以再分, 不过这项目有一部分在Saas. 应该不用分了
+   	—- Controller
+   	—- View
+  	-- Model
+   	—- ViewModel
+   	—- Login
+   - Login
+   - ..
+
+Common : 基础类, BaseViewController, BaseModel..
+   
+NetWork: 网络封装, URL
+
+Saas: 之后的拆分容易点
+   - 模块 1
+      —- Controller
+      -— View
+      -— Model
+      -— ViewModel
+   - 模块 2
+      —- Controller
+      -— View
+      -— Model
+      -— ViewModel
+
+App-config: 
+	Appdelegate 
+	.pch : improt
+	const.h  宏
+        AppDelegate 初始配置文件: 导航, 网络监测
+        
+
+Supporting Files:
+	.plist
+	Main.stroyboard 
+	LaunchScreen
+	
+ 
+   
